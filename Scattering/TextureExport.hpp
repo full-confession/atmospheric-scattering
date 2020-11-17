@@ -64,7 +64,7 @@ namespace Atmos
             fout.close();
         }
 
-        static auto ExportTexturePPM(Texture1D<Vector3> const& texture, char const* const fileName) -> void
+        static auto ExportTexturePPM(Texture1D<Vector3> const& texture, char const* const fileName, float const multiplier) -> void
         {
             auto fout = std::ofstream(fileName, std::ios::out | std::ios::binary);
             if(!fout)
@@ -78,9 +78,9 @@ namespace Atmos
             for(size_t i = 0; i < texture.GetUResolution(); ++i)
             {
                 uint8_t color[3];
-                color[0] = std::min(static_cast<int>(texture[i].x * 255 * 10), 255);
-                color[1] = std::min(static_cast<int>(texture[i].y * 255 * 10), 255);
-                color[2] = std::min(static_cast<int>(texture[i].z * 255 * 10), 255);
+                color[0] = std::min(static_cast<int>(texture[i].x * multiplier * 255), 255);
+                color[1] = std::min(static_cast<int>(texture[i].y * multiplier * 255), 255);
+                color[2] = std::min(static_cast<int>(texture[i].z * multiplier * 255), 255);
 
                 fout.write(reinterpret_cast<char*>(color), std::size(color));
             }

@@ -21,7 +21,7 @@ auto main() -> int
     auto transmittanceMap = Atmos::TransmittanceMap(512, pp, { 512 });
     transmittanceMap.Compute();
 
-    Atmos::ExportTexture::ExportTexturePPM(transmittanceMap.GetTexture(), "transmittance.ppm");
+    Atmos::ExportTexture::ExportTexturePPM(transmittanceMap.GetTexture(), "transmittance.ppm", 1.0f);
     Atmos::ExportTexture::ExportTextureBinary16(transmittanceMap.GetTexture(), "transmittance.bin");
 
     std::cout << "Computing scattering map" << std::endl;
@@ -30,6 +30,7 @@ auto main() -> int
         Atmos::ScatteringMap::Mapping::Linear,
         Atmos::ScatteringMap::Mapping::Linear
     );
+
     Atmos::ExportTexture::ExportTexturePPM(scatteringMap.GetTexture(), "scattering.ppm");
     Atmos::ExportTexture::ExportTextureBinary16(scatteringMap.GetTexture(), "scattering.bin");
 
@@ -38,7 +39,7 @@ auto main() -> int
     auto irradianceMap = Atmos::IrradianceMap(512, 128, pp, { 128 }, { 128 });
     irradianceMap.Compute();
 
-    Atmos::ExportTexture::ExportTexturePPM(irradianceMap.GetTexture(), "irradiance.ppm");
+    Atmos::ExportTexture::ExportTexturePPM(irradianceMap.GetTexture(), "irradiance.ppm", 10.0f);
     Atmos::ExportTexture::ExportTextureBinary16(irradianceMap.GetTexture(), "irradiance.bin");
 
     return 0;
